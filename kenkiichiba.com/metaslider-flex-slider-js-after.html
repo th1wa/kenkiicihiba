@@ -1,0 +1,54 @@
+/* <![CDATA[ */ var metaslider_14938 = function($)
+{$('#metaslider_14938').addClass('flexslider');
+$('#metaslider_14938').flexslider({ slideshowSpeed:3000, animation:"fold",
+controlNav:true, directionNav:true, pauseOnHover:false, direction:"horizontal",
+reverse:false, keyboard:1, touch:1, animationSpeed:1000, prevText:"Previous",
+nextText:"Next", smoothHeight:false, fadeFirstSlide:false, easing:"linear",
+slideshow:true, pausePlay:false, showPlayText:false, playText:false,
+pauseText:false, start: function(slider) {
+slider.find('.flex-prev').attr('aria-label', 'Previous');
+slider.find('.flex-next').attr('aria-label', 'Next'); // Function to disable
+focusable elements in aria-hidden slides function
+disableAriaHiddenFocusableElements() { var slider_ = $('#metaslider_14938'); //
+Disable focusable elements in slides with aria-hidden='true'
+slider_.find('.slides li[aria-hidden="true"] a, .slides li[aria-hidden="true"]
+button, .slides li[aria-hidden="true"] input, .slides li[aria-hidden="true"]
+select, .slides li[aria-hidden="true"] textarea, .slides li[aria-hidden="true"]
+[tabindex]:not([tabindex="-1"])').attr('tabindex', '-1'); // Disable focusable
+elements in cloned slides (these should never be focusable)
+slider_.find('.slides li.clone a, .slides li.clone button, .slides li.clone
+input, .slides li.clone select, .slides li.clone textarea, .slides li.clone
+[tabindex]:not([tabindex="-1"])').attr('tabindex', '-1'); } // Initial setup
+disableAriaHiddenFocusableElements(); // Observer for aria-hidden and clone
+changes if (typeof MutationObserver !== 'undefined') { var ariaObserver = new
+MutationObserver(function(mutations) { var shouldUpdate = false;
+mutations.forEach(function(mutation) { if (mutation.type === 'attributes' &&
+mutation.attributeName === 'aria-hidden') { shouldUpdate = true; } if
+(mutation.type === 'childList') { // Check if cloned slides were added/removed
+for (var i = 0; i < mutation.addedNodes.length; i++) { if
+(mutation.addedNodes[i].nodeType === 1 &&
+(mutation.addedNodes[i].classList.contains('clone') ||
+mutation.addedNodes[i].querySelector &&
+mutation.addedNodes[i].querySelector('.clone'))) { shouldUpdate = true; break; }
+} } }); if (shouldUpdate) { setTimeout(disableAriaHiddenFocusableElements, 10);
+} }); var targetNode = $('#metaslider_14938')[0]; if (targetNode) {
+ariaObserver.observe(targetNode, { attributes: true, attributeFilter:
+['aria-hidden'], childList: true, subtree: true }); } } }, after:
+function(slider) { // Re-disable focusable elements after slide transitions var
+slider_ = $('#metaslider_14938'); // Disable focusable elements in slides with
+aria-hidden='true' slider_.find('.slides li[aria-hidden="true"] a, .slides
+li[aria-hidden="true"] button, .slides li[aria-hidden="true"] input, .slides
+li[aria-hidden="true"] select, .slides li[aria-hidden="true"] textarea, .slides
+li[aria-hidden="true"] [tabindex]:not([tabindex="-1"])').attr('tabindex', '-1');
+// Disable focusable elements in cloned slides slider_.find('.slides li.clone a,
+.slides li.clone button, .slides li.clone input, .slides li.clone select,
+.slides li.clone textarea, .slides li.clone
+[tabindex]:not([tabindex="-1"])').attr('tabindex', '-1'); } });
+$(document).trigger('metaslider/initialized', '#metaslider_14938'); };
+jQuery(document).ready(function($) { $('.metaslider').attr('tabindex', '0');
+$(document).on('keyup.slider', function(e) { }); }); var timer_metaslider_14938
+= function() { var slider = !window.jQuery ?
+window.setTimeout(timer_metaslider_14938, 100) : !jQuery.isReady ?
+window.setTimeout(timer_metaslider_14938, 1) : metaslider_14938(window.jQuery);
+}; timer_metaslider_14938(); //# sourceURL=metaslider-flex-slider-js-after /*
+]]> */
